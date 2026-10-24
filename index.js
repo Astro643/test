@@ -5,7 +5,8 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.once("clientReady", async () => {
+// FIX: Changed "clientReady" to "ready" so the command actually registers
+client.once("ready", async () => {
   await client.application.commands.set([{
     name: "talk",
     description: "Talk to the AI",
@@ -16,7 +17,7 @@ client.once("clientReady", async () => {
 
 client.on("interactionCreate", async (i) => {
   if (!i.isChatInputCommand() || i.commandName !== "talk") return;
-  await i.deferReply(); // Gemini can take longer than Discord's 3s limit
+  await i.deferReply(); 
   try {
     const res = await ai.models.generateContent({
       model,
@@ -30,3 +31,4 @@ client.on("interactionCreate", async (i) => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
