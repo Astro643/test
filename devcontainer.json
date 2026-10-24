@@ -1,0 +1,9 @@
+{
+  "name": "Discord Talk Bot",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "postCreateCommand": "npm install",
+  "secrets": {
+    "DISCORD_TOKEN": { "description": "Discord bot token (Developer Portal > Bot)." },
+    "GEMINI_API_KEY": { "description": "Google AI Studio API key." }
+  }
+}
